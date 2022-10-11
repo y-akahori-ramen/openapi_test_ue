@@ -3,9 +3,15 @@ import express from 'express';
 import openapi from 'express-openapi';
 import path from 'path'
 import { fileURLToPath } from 'url';
+import { program } from 'commander';
 
 const __filename = fileURLToPath(import.meta.url);
 
+program
+  .option('-p, --port <value>', 'server port number', 3000);
+program.parse();
+const options = program.opts();
+  
 const service = new Service();
 const app = express()
 
@@ -22,9 +28,8 @@ openapi.initialize({
     }
 });
 
-const port = 3000
-const server = app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
+const server = app.listen(options.port, () => {
+    console.log(`Listening on port ${options.port}`)
 })
 
 function shutdown() {
