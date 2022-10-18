@@ -12,9 +12,10 @@ program
 program.parse();
 const options = program.opts();
   
-const service = new Service();
-const app = express()
+const storageDir = path.resolve(path.dirname(__filename), 'saved');
+const service = new Service(storageDir);
 
+const app = express()
 app.use(express.json({ limit: "512mb" }));
 
 const apiFilePath = path.resolve(path.dirname(__filename), '../api.yaml');
@@ -23,8 +24,8 @@ openapi.initialize({
     apiDoc: apiFilePath,
     validateApiDoc: true,
     operations: {
-        helloOperation: service.handleHello,
-        uploadFile: service.uploadFile,
+        helloOperation: service.handleHello.bind(service),
+        uploadFile: service.uploadFile.bind(service),
     }
 });
 
