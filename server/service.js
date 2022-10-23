@@ -1,6 +1,7 @@
 
 import { writeFile } from 'node:fs/promises';
 import path from 'path'
+import fsPromises from 'fs/promises'
 
 function toSafeFileName(filename) {
     return filename.replace(/(\.\.\/|\.\.\\)/g, "");
@@ -29,6 +30,22 @@ class Service {
                 res.json({ filename: req.body.filename });
             });
 
+    }
+
+    index(req, res) {
+        fsPromises.readdir(this.#storageDir)
+            .then((entries) => {
+                let items = [];
+
+                for (const entry of entries) {
+                    if (entry === '.gitkeep') {
+                        continue;
+                    }
+                    items.push({ name: entry, link: entry });
+                }
+
+                res.render('index.ejs', { items: items });
+            });
     }
 }
 

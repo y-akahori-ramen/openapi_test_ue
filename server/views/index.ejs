@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>OpenAPITest-Index</title>
+    </head>
+    <body>
+        <h1>Uploaded Images</h1> 
+        <ul>
+            <% for (let item of items) { %>
+                <li><a href="<%- item.link %>"><%- item.name %></a></li>
+            <% } %>
+        </ul>
+    </body>
+</html>

@@ -22,6 +22,8 @@ const service = new Service(storageDir);
 
 const app = express()
 app.use(express.json({ limit: "512mb" }));
+app.use(express.static('saved'));
+app.set('view engine', 'ejs');
 
 const apiFilePath = path.resolve(path.dirname(__filename), '../api.yaml');
 openapi.initialize({
@@ -33,6 +35,7 @@ openapi.initialize({
         uploadFile: service.uploadFile.bind(service),
     }
 });
+app.get('/', service.index.bind(service));
 
 const enableTLS = options.key !== undefined && options.crt !== undefined;
 console.log(`enableTLS: ${enableTLS}`);
