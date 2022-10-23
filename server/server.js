@@ -1,4 +1,4 @@
-import Service from './service.js'
+import { Service } from './service.js'
 import express from 'express';
 import openapi from 'express-openapi';
 import path from 'path'

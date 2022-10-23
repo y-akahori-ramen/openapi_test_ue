@@ -2,7 +2,11 @@
 import { writeFile } from 'node:fs/promises';
 import path from 'path'
 
-export default class Service {
+function toSafeFileName(filename) {
+    return filename.replace(/(\.\.\/|\.\.\\)/g, "");
+}
+
+class Service {
     #storageDir;
 
     constructor(storageDir) {
@@ -14,7 +18,8 @@ export default class Service {
     }
 
     uploadFile(req, res) {
-        const safeFilename = req.body.filename.replace(/\.\.\//g, "");
+        // Prevent save file to upper directory
+        const safeFilename = toSafeFileName(req.body.filename);
         const saveFilePath = path.resolve(this.#storageDir, safeFilename);
 
         console.log(`save image: ${saveFilePath}`);
@@ -26,3 +31,5 @@ export default class Service {
 
     }
 }
+
+export { Service, toSafeFileName }
