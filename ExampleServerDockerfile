@@ -1,0 +1,14 @@
+FROM node:18.11
+
+WORKDIR /usr/app
+COPY ./api.yaml .
+
+WORKDIR /usr/app/server
+COPY ./server/*.json .
+COPY ./server/*.js .
+COPY ./server/views ./views/
+RUN mkdir -p saved
+RUN npm install --only=production
+
+ENV NODE_ENV production
+CMD ["node", "server.js", "-p", "8000"]

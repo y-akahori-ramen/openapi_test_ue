@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: ExampleServerDockerfile
+    volumes:
+      - saved:/usr/app/server/saved
+    ports:
+      - "8000:8000"
+  maintenance:
+    image: debian:bullseye-slim
+    volumes:
+      - saved:/usr/app/server/saved
+      - ./:/usr/maintenance
+    working_dir: /usr/maintenance
+volumes:
+  saved:
+    driver: local
