@@ -4,11 +4,16 @@ import openapi from 'express-openapi';
 import path from 'path'
 import { fileURLToPath } from 'url';
 import { program } from 'commander';
+import https from 'https'
+import http from 'http'
+import fs from 'fs'
 
 const __filename = fileURLToPath(import.meta.url);
 
 program
-  .option('-p, --port <value>', 'server port number', 3000);
+  .option('-p, --port <value>', 'server port number', 3000)
+  .option('-key, --key <value>', 'private key file for tls')
+  .option('-crt, --crt <value>', 'crt file for tls');
 program.parse();
 const options = program.opts();
   
@@ -29,7 +34,24 @@ openapi.initialize({
     }
 });
 
-const server = app.listen(options.port, () => {
+const enableTLS = options.key !== undefined && options.crt !== undefined;
+console.log(`enableTLS: ${enableTLS}`);
+
+let server;
+if(enableTLS)
+{
+    const tlsOptions = {
+        cert: fs.readFileSync(options.crt),
+        key: fs.readFileSync(options.key),
+    }
+    server = https.createServer(tlsOptions,app);
+}
+else
+{
+    server = http.createServer(app);
+}
+
+server.listen(options.port, () => {
     console.log(`Listening on port ${options.port}`)
 })
 
