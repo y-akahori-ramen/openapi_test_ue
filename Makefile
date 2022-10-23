@@ -14,7 +14,7 @@ rm-swagger:
 run-example-server:	
 	docker-compose -f ./exampleserver/docker-compose.yml up
 backup-example-server:
-	docker-compose -f ./exampleserver/docker-compose.yml run --rm maintenance tar cvf ./backup/backup_`date +%Y%m%d_%H_%M_%S_UTC`.tar -C /usr/app/server/ saved
+	docker-compose -f ./exampleserver/docker-compose.yml run --rm maintenance tar cvf ./backup/${BACKUP_FILE} -C /usr/app/server/ saved
 restore-example-server:
 	docker-compose -f ./exampleserver/docker-compose.yml down --volumes
 	docker-compose -f ./exampleserver/docker-compose.yml run --rm maintenance tar xvf ./backup/${BACKUP_FILE} -C /usr/app/server/
