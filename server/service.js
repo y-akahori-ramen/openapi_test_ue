@@ -38,7 +38,7 @@ class Service {
                 let items = [];
 
                 for (const entry of entries) {
-                    if (entry === '.gitkeep') {
+                    if (entry === '.gitkeep' || entry === '.gitignore') {
                         continue;
                     }
                     items.push({ name: entry, link: entry });
