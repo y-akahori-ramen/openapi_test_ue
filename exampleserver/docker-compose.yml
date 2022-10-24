@@ -7,7 +7,7 @@ services:
     volumes:
       - saved:/usr/app/server/saved
     ports:
-      - "8000:8000"
+      - "3000:3000"
   maintenance:
     image: debian:bullseye-slim
     volumes:
