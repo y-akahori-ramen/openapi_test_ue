@@ -13,6 +13,8 @@ rm-swagger:
 	docker rm -f swagger
 run-example-server:	
 	docker compose -f ./exampleserver/docker-compose.yml up
+stop-example-server:	
+	docker compose -f ./exampleserver/docker-compose.yml stop
 backup-example-server:
 	docker compose -f ./exampleserver/docker-compose.yml run --rm maintenance tar cvf ./backup/${BACKUP_FILE} -C /usr/app/server/ saved
 restore-example-server:
@@ -21,4 +23,4 @@ restore-example-server:
 clean-example-server:
 	docker compose -f ./exampleserver/docker-compose.yml down --rmi all --volumes --remove-orphans
 
-.PHONY: gen-api gen-dev-cert run-swagger rm-swagger run-example-server backup-example-server restore-example-server
+.PHONY: gen-api gen-dev-cert run-swagger rm-swagger run-example-server stop-example-server backup-example-server restore-example-server clean-example-server
