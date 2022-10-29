@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: FileServer
+  version: 1.0.0
+paths:
+  /hello:
+    get:
+      operationId: helloOperation
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  message:
+                    type: string
+  /upload:
+    post:
+      summary: Upload file
+      operationId: uploadFile
+      requestBody:
+        description: Upload file to server
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                filename:
+                  type: string
+                  example: image.png
+                base64data:
+                  type: string
+                  # format: byte
+                  example: YWJjZGVmZw==
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  filename:
+                    type: string
