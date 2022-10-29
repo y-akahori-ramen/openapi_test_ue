@@ -22,5 +22,6 @@ restore-example-server:
 	docker compose -f ./exampleserver/docker-compose.yml run --rm maintenance tar xvf ./backup/${BACKUP_FILE} -C /usr/app/server/
 clean-example-server:
 	docker compose -f ./exampleserver/docker-compose.yml down --rmi all --volumes --remove-orphans
-
-.PHONY: gen-api gen-dev-cert run-swagger-editor stop-swagger-editor run-example-server stop-example-server backup-example-server restore-example-server clean-example-server
+test:
+	npm --prefix server run test
+.PHONY: gen-api gen-dev-cert run-swagger-editor stop-swagger-editor run-example-server stop-example-server backup-example-server restore-example-server clean-example-server test
