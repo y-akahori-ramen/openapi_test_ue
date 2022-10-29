@@ -7,12 +7,12 @@ gen-api:
 gen-dev-cert:
 	docker build --file ./GenDevCertDockerfile . --tag openapitest_openssl:1.0 
 	docker run --rm -v $(CURDIR)/certForDev:/local -w /local openapitest_openssl:1.0 /bin/bash ./generate.sh
-run-swagger:
+run-swagger-editor:
 	docker run --name swagger -d -p 8080:8080  swaggerapi/swagger-editor
-rm-swagger:
+stop-swagger-editor:
 	docker rm -f swagger
 run-example-server:	
-	docker compose -f ./exampleserver/docker-compose.yml up
+	docker compose -f ./exampleserver/docker-compose.yml up -d
 stop-example-server:	
 	docker compose -f ./exampleserver/docker-compose.yml stop
 backup-example-server:
