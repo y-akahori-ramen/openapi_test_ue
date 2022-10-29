@@ -23,4 +23,4 @@ restore-example-server:
 clean-example-server:
 	docker compose -f ./exampleserver/docker-compose.yml down --rmi all --volumes --remove-orphans
 
-.PHONY: gen-api gen-dev-cert run-swagger rm-swagger run-example-server stop-example-server backup-example-server restore-example-server clean-example-server
+.PHONY: gen-api gen-dev-cert run-swagger-editor stop-swagger-editor run-example-server stop-example-server backup-example-server restore-example-server clean-example-server
