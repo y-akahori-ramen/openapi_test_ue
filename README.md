@@ -8,6 +8,8 @@ Sever feature
 UnrealEngine client feature
 - Take UnrealEngine screenshot and send upload request to server.
 
+![](image.gif)
+
 ## Using Example server
 Example server is run with docker.  
 
